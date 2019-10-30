@@ -29,7 +29,7 @@ We represent a card with two characters. The first character is the rank. The se
 |Hearts|♥️|
 |Spades|♠️|
 
-As an example, "4H" is the four of Hearts.
+As an example, "4♥️" is the four of Hearts.
 
 A Cribbage hand is represented as a string of ten characters. The first eight characters the four hand cards. The last two characters represent the starter card
 For example, the string "5♥️5♦️5♠️J♣️5♣️" represent a Cribbage hand with five of Hearts, five of Diamonds, five of Spades and Jack of Clubs as hand card and five of Clubs as starter card.
