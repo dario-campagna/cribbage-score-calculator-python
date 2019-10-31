@@ -28,8 +28,11 @@ class Rank(object):
         else:
             return False
 
-    def __eq__(self, value):
-        return self.value == value
+    def __eq__(self, that):
+        if isinstance(that, Rank):
+            return self.value == that.value
+        else:
+            return False
 
     def __lt__(self, that):
         this_pos_value = Rank.RANKS_DICT[self.value]
@@ -44,8 +47,11 @@ class Card(object):
         self.rank = rank
         self.suite = suite
 
-    def __eq__(self, value):
-        return self.rank == value.rank and self.suite == value.suite
+    def __eq__(self, that):
+        if isinstance(that, Card):
+            return self.rank == that.rank and self.suite == that.suite
+        else:
+            return False
 
     def __lt__(self, value):
         return self.rank < value.rank
@@ -65,7 +71,7 @@ class CribbageHand(object):
         return self.__count_same_suite__() == 3
 
     def holds_nob(self):
-        return Card('J', self.starter_card.suite) in self.hand_cards
+        return Card(Rank('J'), self.starter_card.suite) in self.hand_cards
 
     def is_run_of_five(self):
         return Rank.are_consecutives(self.__all_cards_ranks_sorted__())
