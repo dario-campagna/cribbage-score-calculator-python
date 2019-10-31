@@ -77,14 +77,14 @@ class CribbageHand(object):
         return Rank.are_consecutives(self.__all_cards_ranks_sorted__())
 
     def is_run_of_four(self):
-        tuples = combinations(self.__all_cards_ranks_sorted__(), 4)
-        runs = [t for t in tuples if Rank.are_consecutives(t)]
-        return len(runs) > 0
+        return len(self.__runs_of__(4)) > 0
 
     def number_of_runs_of_three(self):
-        tuples = combinations(self.__all_cards_ranks_sorted__(), 3)
-        runs = [t for t in tuples if Rank.are_consecutives(t)]
-        return len(runs)
+        return len(self.__runs_of__(3))
+
+    def __runs_of__(self, n):
+        tuples = combinations(self.__all_cards_ranks_sorted__(), n)
+        return [t for t in tuples if Rank.are_consecutives(t)]
 
     def __count_same_suite__(self):
         return len([c for c in self.hand_cards[1:]
