@@ -1,3 +1,4 @@
+from itertools import combinations
 from enum import Enum
 from typing import List
 
@@ -18,16 +19,15 @@ class Card(object):
         self.rank = rank
         self.suite = suite
 
-    def next(self):
-        if (self.rank == 'K'):
-            return self
-        else:
-            next_rank = self.ranks[self.ranks.index(self.rank) + 1]
-            return Card(next_rank, self.suite)
-
     def has_next_in(self, cards):
-        successors = [card for card in cards if card.rank == self.next().rank]
+        successors = [c for c in cards if c.rank == self.__successor_rank__()]
         return len(successors) > 0
+
+    def __successor_rank__(self):
+        if (self.rank == 'K'):
+            return self.rank
+        else:
+            return self.ranks[self.ranks.index(self.rank) + 1]
 
     def __eq__(self, value):
         return self.rank == value.rank and self.suite == value.suite
@@ -43,7 +43,8 @@ class CribbageHand(object):
         self.starter_card = cards[-1]
 
     def number_of_pairs(self):
-        return self.__count_pairs__(self.starter_card, self.hand_cards)
+        tuples = combinations(self.__all_cards_sorted__(), 2)
+        return len([t for t in tuples if t[0].rank == t[1].rank])
 
     def is_flush(self):
         return self.__count_same_suite__() == 3
@@ -52,22 +53,15 @@ class CribbageHand(object):
         return Card('J', self.starter_card.suite) in self.hand_cards
 
     def is_run_of_five(self):
-        all_cards = self.hand_cards[:] + [self.starter_card]
-        return self.__check_consecutives__(sorted(all_cards))
-
-    def __check_consecutives__(self, cards):
-        return all(card.has_next_in(cards) for card in cards[:-1])
+        all_cards = self.__all_cards_sorted__()
+        return all(card.has_next_in(all_cards) for card in all_cards[:-1])
 
     def __count_same_suite__(self):
         return len([c for c in self.hand_cards[1:]
                     if c.suite == self.hand_cards[0].suite])
 
-    def __count_pairs__(self, card, other_cards):
-        if len(other_cards) == 0:
-            return 0
-        else:
-            return (len([c for c in other_cards if c.rank == card.rank]) +
-                    self.__count_pairs__(other_cards[0], other_cards[1:]))
+    def __all_cards_sorted__(self):
+        return sorted(self.hand_cards[:] + [self.starter_card])
 
     def __eq__(self, value):
         return (self.hand_cards == value.hand_cards and
