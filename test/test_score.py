@@ -99,7 +99,7 @@ class TestRuns(unittest.TestCase):
         ])
         self.assertEqual(3, score(cribbage_hand))
     
-    def test_eight_points_for_two_runs_of_three_and_a_pair(self):
+    def test_eight_points_for_double_run(self):
         cribbage_hand = CribbageHand([
             Card(Rank('2'), Suite.DIAMONDS),
             Card(Rank('2'), Suite.HEARTS),
@@ -108,3 +108,23 @@ class TestRuns(unittest.TestCase):
             Card(Rank('4'), Suite.SPADES),
         ])
         self.assertEqual(8, score(cribbage_hand))
+    
+    def test_fiteen_points_for_triple_run(self):
+        cribbage_hand = CribbageHand([
+            Card(Rank('2'), Suite.DIAMONDS),
+            Card(Rank('2'), Suite.HEARTS),
+            Card(Rank('3'), Suite.CLUBS),
+            Card(Rank('4'), Suite.DIAMONDS),
+            Card(Rank('2'), Suite.SPADES),
+        ])
+        self.assertEqual(15, score(cribbage_hand))
+    
+    def test_sixteen_points_for_double_double_run(self):
+        cribbage_hand = CribbageHand([
+            Card(Rank('4'), Suite.DIAMONDS),
+            Card(Rank('2'), Suite.HEARTS),
+            Card(Rank('3'), Suite.CLUBS),
+            Card(Rank('4'), Suite.DIAMONDS),
+            Card(Rank('3'), Suite.SPADES),
+        ])
+        self.assertEqual(16, score(cribbage_hand))
