@@ -1,3 +1,4 @@
+import re
 from itertools import combinations
 from enum import Enum
 from typing import List
@@ -54,14 +55,28 @@ class CribbageHand(object):
 
     def is_run_of_five(self):
         all_cards = self.__all_cards_sorted__()
-        return all(card.has_next_in(all_cards) for card in all_cards[:-1])
+        return self.__are_consecutives__(all_cards)
+
+    def is_run_of_four(self):
+        tuples = combinations(self.__all_cards_sorted__(), 4)
+        runs = [t for t in tuples if self.__are_consecutives__(t)]
+        return len(runs) == 1
+
+    def __are_consecutives__(self, cards):
+        ranks = ('A', '2', '3', '4', '5', '6',
+                      '7', '8', '9', '0', 'J', 'Q', 'K')
+        card_ranks = ''.join(card.rank for card in cards)
+        if re.search(card_ranks, ''.join(ranks)):
+            return True
+        else:
+            return False
 
     def __count_same_suite__(self):
         return len([c for c in self.hand_cards[1:]
                     if c.suite == self.hand_cards[0].suite])
 
     def __all_cards_sorted__(self):
-        return sorted(self.hand_cards[:] + [self.starter_card])
+        return sorted(self.hand_cards + [self.starter_card])
 
     def __eq__(self, value):
         return (self.hand_cards == value.hand_cards and

@@ -78,3 +78,13 @@ class TestRuns(unittest.TestCase):
             Card('K', Suite.SPADES),
         ])
         self.assertEqual(5, score(cribbage_hand))
+
+    def test_four_points_for_run_of_four(self):
+        cribbage_hand = CribbageHand([
+            Card('2', Suite.DIAMONDS),
+            Card('0', Suite.SPADES),
+            Card('J', Suite.DIAMONDS),
+            Card('Q', Suite.DIAMONDS),
+            Card('K', Suite.SPADES),
+        ])
+        self.assertEqual(4, score(cribbage_hand))
