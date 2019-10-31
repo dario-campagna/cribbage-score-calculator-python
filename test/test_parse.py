@@ -32,4 +32,16 @@ class TestParseCard(unittest.TestCase):
 class TestParseCribbageHand(unittest.TestCase):
     def test_parse_two_cards(self):
         cribbage_hand = parse('6♠8♦')
-        self.assertEqual(CribbageHand((Card('6', Suite.SPADES), Card('8', Suite.DIAMONDS))), cribbage_hand)
+        self.assertEqual(CribbageHand(
+            [Card('6', Suite.SPADES), Card('8', Suite.DIAMONDS)]), cribbage_hand)
+
+    def test_parse_five_cards(self):
+        expected = CribbageHand([
+            Card('6', Suite.SPADES),
+            Card('8', Suite.DIAMONDS),
+            Card('A', Suite.DIAMONDS),
+            Card('3', Suite.SPADES),
+            Card('J', Suite.SPADES)
+        ])
+        cribbage_hand = parse('6♠8♦A♦3♠J♠')
+        self.assertEqual(expected, cribbage_hand)
