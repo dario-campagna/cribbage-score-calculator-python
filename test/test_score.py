@@ -56,3 +56,13 @@ class TestFlush(unittest.TestCase):
             Card('J', Suite.SPADES),
         ])
         self.assertEqual(4, score(cribbage_hand))
+
+    def test_one_point_for_the_J_of_the_same_suite_as_the_starter_card(self):
+        cribbage_hand = CribbageHand([
+            Card('3', Suite.DIAMONDS),
+            Card('J', Suite.SPADES),
+            Card('7', Suite.DIAMONDS),
+            Card('9', Suite.DIAMONDS),
+            Card('0', Suite.SPADES),
+        ])
+        self.assertEqual(1, score(cribbage_hand))

@@ -30,6 +30,9 @@ class CribbageHand(object):
 
     def is_flush(self):
         return self.__count_same_suite__() == 3
+    
+    def holds_nob(self):
+        return Card('J', self.starter_card.suite) in self.hand_cards
 
     def __count_same_suite__(self):
         return len([c for c in self.hand_cards[1:]
