@@ -66,3 +66,15 @@ class TestFlush(unittest.TestCase):
             Card('0', Suite.SPADES),
         ])
         self.assertEqual(1, score(cribbage_hand))
+
+
+class TestRuns(unittest.TestCase):
+    def test_five_points_for_run_of_five(self):
+        cribbage_hand = CribbageHand([
+            Card('9', Suite.DIAMONDS),
+            Card('0', Suite.SPADES),
+            Card('J', Suite.DIAMONDS),
+            Card('Q', Suite.DIAMONDS),
+            Card('K', Suite.SPADES),
+        ])
+        self.assertEqual(5, score(cribbage_hand))
