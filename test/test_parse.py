@@ -1,6 +1,6 @@
 import unittest
 
-from production.cribbage.parse import parse, parse_card
+from production.cribbage.parse import parse_hand, parse_card
 from production.cribbage.cards import Suite, Card, CribbageHand
 
 
@@ -32,7 +32,7 @@ class TestParseCard(unittest.TestCase):
 
 class TestParseCribbageHand(unittest.TestCase):
     def test_parse_two_cards(self):
-        cribbage_hand = parse('6♠8♦')
+        cribbage_hand = parse_hand('6♠8♦')
         self.assertEqual(CribbageHand(
             [Card('6', Suite.SPADES), Card('8', Suite.DIAMONDS)]), cribbage_hand)
 
@@ -44,5 +44,5 @@ class TestParseCribbageHand(unittest.TestCase):
             Card('3', Suite.SPADES),
             Card('J', Suite.SPADES)
         ])
-        cribbage_hand = parse('6♠8♦A♦3♠J♠')
+        cribbage_hand = parse_hand('6♠8♦A♦3♠J♠')
         self.assertEqual(expected, cribbage_hand)
