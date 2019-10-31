@@ -1,6 +1,7 @@
 import unittest
 
-from production.cribbage import parse, parse_card, Suite, Card, CribbageHand
+from production.cribbage.parse import parse, parse_card
+from production.cribbage.cards import Suite, Card, CribbageHand
 
 
 class TestParseCard(unittest.TestCase):
