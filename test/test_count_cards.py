@@ -85,3 +85,23 @@ class TestCountRuns(unittest.TestCase):
             Card(Rank('6'), Suite.SPADES),
         ])
         self.assertFalse(cribbage_hand.is_run_of_four())
+
+    def test_one_run_of_three(self):
+        cribbage_hand = CribbageHand([
+            Card(Rank('8'), Suite.DIAMONDS),
+            Card(Rank('A'), Suite.DIAMONDS),
+            Card(Rank('5'), Suite.CLUBS),
+            Card(Rank('7'), Suite.DIAMONDS),
+            Card(Rank('9'), Suite.SPADES),
+        ])
+        self.assertEqual(1, cribbage_hand.number_of_runs_of_three())
+    
+    def test_two_runs_of_three(self):
+        cribbage_hand = CribbageHand([
+            Card(Rank('2'), Suite.DIAMONDS),
+            Card(Rank('2'), Suite.HEARTS),
+            Card(Rank('3'), Suite.CLUBS),
+            Card(Rank('7'), Suite.DIAMONDS),
+            Card(Rank('4'), Suite.SPADES),
+        ])
+        self.assertEqual(2, cribbage_hand.number_of_runs_of_three())

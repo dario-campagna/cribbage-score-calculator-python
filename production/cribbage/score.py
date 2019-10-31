@@ -10,10 +10,12 @@ def score(cribbage_hand: CribbageHand):
 
 
 def __score_runs__(cribbage_hand):
-    return (
-        5 * cribbage_hand.is_run_of_five() +
-        4 * cribbage_hand.is_run_of_four()
-    )
+    if cribbage_hand.is_run_of_five():
+        return 5
+    elif cribbage_hand.is_run_of_four():
+        return 4
+    else:
+        return 3 * cribbage_hand.number_of_runs_of_three()
 
 
 def __score_pairs__(cribbage_hand: CribbageHand):

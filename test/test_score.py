@@ -63,7 +63,7 @@ class TestFlush(unittest.TestCase):
             Card(Rank('J'), Suite.SPADES),
             Card(Rank('7'), Suite.DIAMONDS),
             Card(Rank('9'), Suite.DIAMONDS),
-            Card(Rank('0'), Suite.SPADES),
+            Card(Rank('A'), Suite.SPADES),
         ])
         self.assertEqual(1, score(cribbage_hand))
 
@@ -88,3 +88,23 @@ class TestRuns(unittest.TestCase):
             Card(Rank('K'), Suite.SPADES),
         ])
         self.assertEqual(4, score(cribbage_hand))
+
+    def test_three_points_for_a_run_of_three(self):
+        cribbage_hand = CribbageHand([
+            Card(Rank('8'), Suite.DIAMONDS),
+            Card(Rank('A'), Suite.DIAMONDS),
+            Card(Rank('5'), Suite.CLUBS),
+            Card(Rank('7'), Suite.DIAMONDS),
+            Card(Rank('9'), Suite.SPADES),
+        ])
+        self.assertEqual(3, score(cribbage_hand))
+    
+    def test_eight_points_for_two_runs_of_three_and_a_pair(self):
+        cribbage_hand = CribbageHand([
+            Card(Rank('2'), Suite.DIAMONDS),
+            Card(Rank('2'), Suite.HEARTS),
+            Card(Rank('3'), Suite.CLUBS),
+            Card(Rank('7'), Suite.DIAMONDS),
+            Card(Rank('4'), Suite.SPADES),
+        ])
+        self.assertEqual(8, score(cribbage_hand))
