@@ -12,28 +12,28 @@ class Suite(Enum):
 
 
 class Rank(object):
+    RANKS_DICT = {'A': 0, '2': 1, '3': 2, '4': 3, '5': 4, '6': 5,
+                  '7': 6, '8': 7, '9': 8, '0': 9, 'J': 10, 'Q': 11, 'K': 12}
+    RANKS_AS_STRINGS = ''.join(RANKS_DICT.keys())
 
-    RANKS = ('A', '2', '3', '4', '5', '6',
-             '7', '8', '9', '0', 'J', 'Q', 'K')
-
-    def __init__(self, value_as_string):
+    def __init__(self, value: str):
         super()
-        self.value_as_string = value_as_string
+        self.value = value
 
     @staticmethod
     def are_consecutives(ranks):
-        ranks = ''.join(rank.value_as_string for rank in ranks)
-        if re.search(ranks, ''.join(Rank.RANKS)):
+        ranks = ''.join(rank.value for rank in ranks)
+        if re.search(ranks, Rank.RANKS_AS_STRINGS):
             return True
         else:
             return False
 
     def __eq__(self, value):
-        return self.value_as_string == value.value_as_string
+        return self.value == value
 
-    def __lt__(self, value):
-        this_pos_value = Rank.RANKS.index(self.value_as_string)
-        that_pos_value = Rank.RANKS.index(value.value_as_string)
+    def __lt__(self, that):
+        this_pos_value = Rank.RANKS_DICT[self.value]
+        that_pos_value = Rank.RANKS_DICT[that.value]
         return this_pos_value < that_pos_value
 
 
