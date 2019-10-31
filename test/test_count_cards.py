@@ -2,6 +2,7 @@ import unittest
 
 from production.cribbage.cards import CribbageHand, Card, Suite
 
+
 class TestCountPairs(unittest.TestCase):
     def test_count_one_pair(self):
         cribbage_hand = CribbageHand([

@@ -3,6 +3,7 @@ import unittest
 from production.cribbage.cards import CribbageHand, Card, Suite
 from production.cribbage.score import score
 
+
 class TestPairs(unittest.TestCase):
     def test_two_points_for_a_pair_of_cards_of_a_kind(self):
         cribbage_hand = CribbageHand([
@@ -23,7 +24,7 @@ class TestPairs(unittest.TestCase):
             Card('A', Suite.HEARTS),
         ])
         self.assertEqual(4, score(cribbage_hand))
-    
+
     def test_six_points_for_three_cards_of_a_kind(self):
         cribbage_hand = CribbageHand([
             Card('6', Suite.DIAMONDS),
@@ -43,3 +44,15 @@ class TestPairs(unittest.TestCase):
             Card('0', Suite.SPADES),
         ])
         self.assertEqual(12, score(cribbage_hand))
+
+
+class TestFlush(unittest.TestCase):
+    def test_four_points_for_a_flush(self):
+        cribbage_hand = CribbageHand([
+            Card('3', Suite.DIAMONDS),
+            Card('A', Suite.DIAMONDS),
+            Card('7', Suite.DIAMONDS),
+            Card('9', Suite.DIAMONDS),
+            Card('J', Suite.SPADES),
+        ])
+        self.assertEqual(4, score(cribbage_hand))
