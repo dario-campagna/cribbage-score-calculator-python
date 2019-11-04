@@ -1,5 +1,5 @@
 import re
-from production.cribbage.cards import CribbageHand, Card, Suite
+from .cards import CribbageHand, Card, Suite, Rank
 
 
 def parse_hand(cards_as_text: str):
@@ -9,4 +9,4 @@ def parse_hand(cards_as_text: str):
 
 
 def parse_card(card_as_text: str):
-    return Card(card_as_text[0], Suite(card_as_text[1]))
+    return Card(Rank(card_as_text[0]), Suite(card_as_text[1]))

@@ -1,4 +1,4 @@
-from production.cribbage.cards import CribbageHand
+from .cards import CribbageHand
 
 
 def score(cribbage_hand: CribbageHand):
