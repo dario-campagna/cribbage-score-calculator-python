@@ -1,5 +1,5 @@
 import unittest
-from production.cribbage.cards import Rank
+from cribbage.cards import Rank
 
 
 class TestRank(unittest.TestCase):

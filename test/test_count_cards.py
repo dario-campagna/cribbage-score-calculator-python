@@ -1,6 +1,6 @@
 import unittest
 
-from production.cribbage.cards import CribbageHand, Card, Suite, Rank
+from cribbage.cards import CribbageHand, Card, Suite, Rank
 
 
 class TestCountPairs(unittest.TestCase):

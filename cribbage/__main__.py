@@ -1,6 +1,6 @@
 import sys
-from production.cribbage.score import score
-from production.cribbage.parse import parse_hand
+from cribbage.score import score
+from cribbage.parse import parse_hand
 
 
 def main(hand_as_string):

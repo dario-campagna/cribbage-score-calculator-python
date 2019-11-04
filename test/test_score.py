@@ -1,7 +1,7 @@
 import unittest
 
-from production.cribbage.cards import CribbageHand, Card, Suite, Rank
-from production.cribbage.score import score
+from cribbage.cards import CribbageHand, Card, Suite, Rank
+from cribbage.score import score
 
 
 class TestPairs(unittest.TestCase):

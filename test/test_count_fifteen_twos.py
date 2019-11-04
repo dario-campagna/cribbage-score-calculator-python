@@ -1,5 +1,5 @@
 import unittest
-from production.cribbage.cards import CribbageHand, Suite, Rank, Card
+from cribbage.cards import CribbageHand, Suite, Rank, Card
 
 
 class TestFifteenTwos(unittest.TestCase):
