@@ -13,6 +13,7 @@ def score(cribbage_hand: CribbageHand):
 def __score_fifteen_twos__(cribbage_hand):
     return 2 * cribbage_hand.number_of_fifteen_twos()
 
+
 def __score_runs__(cribbage_hand):
     if cribbage_hand.is_run_of_five():
         return 5

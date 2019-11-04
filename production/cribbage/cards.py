@@ -12,8 +12,10 @@ class Suite(Enum):
 
 
 class Rank(object):
-    RANKS_DICT = {'A': 0, '2': 1, '3': 2, '4': 3, '5': 4, '6': 5,
-                  '7': 6, '8': 7, '9': 8, '0': 9, 'J': 10, 'Q': 11, 'K': 12}
+    RANKS_DICT = {'A': (0, 1), '2': (1, 2), '3': (2, 3), '4': (3, 4),
+                  '5': (4, 5), '6': (5, 6), '7': (6, 7), '8': (7, 8),
+                  '9': (8, 9), '0': (9, 10), 'J': (10, 10), 'Q': (11, 10),
+                  'K': (12, 10)}
     RANKS_AS_STRINGS = ''.join(RANKS_DICT.keys())
 
     def __init__(self, value: str):
@@ -27,14 +29,9 @@ class Rank(object):
             return True
         else:
             return False
-        
+
     def int_value(self):
-        if 'A' == self.value:
-            return 1
-        elif '0' == self.value or self.value >= 'J':
-            return 10
-        else:
-            return int(self.value)
+        return Rank.RANKS_DICT[self.value][1]
 
     def __eq__(self, that):
         if isinstance(that, Rank):
@@ -43,8 +40,8 @@ class Rank(object):
             return False
 
     def __lt__(self, that):
-        this_pos_value = Rank.RANKS_DICT[self.value]
-        that_pos_value = Rank.RANKS_DICT[that.value]
+        this_pos_value = Rank.RANKS_DICT[self.value][0]
+        that_pos_value = Rank.RANKS_DICT[that.value][0]
         return this_pos_value < that_pos_value
 
 
@@ -72,8 +69,9 @@ class CribbageHand(object):
         self.starter_card = cards[-1]
 
     def number_of_pairs(self):
-        tuples = combinations(self.__all_cards_sorted__(), 2)
-        return len([t for t in tuples if t[0].rank == t[1].rank])
+        combs_of_two_cards = combinations(self.__all_cards_sorted__(), 2)
+        return len([cards for cards in combs_of_two_cards
+                    if cards[0].rank == cards[1].rank])
 
     def is_flush(self):
         return self.__count_same_suite__() == 3
@@ -91,19 +89,21 @@ class CribbageHand(object):
         return len(self.__runs_of__(3))
 
     def number_of_fifteen_twos(self):
-        two_cards = combinations(self.__all_cards_ranks_sorted__(), 2)
-        return len([t for t in two_cards if self.__totals_fifteen__(t)])
+        return sum(self.__totals_fifteen__(n) for n in range(2, 6))
 
-    def __totals_fifteen__(self, ranks):
-        return sum(rank.int_value() for rank in ranks) == 15
+    def __totals_fifteen__(self, n):
+        combs_of_ranks = combinations(self.__all_cards_ranks_sorted__(), n)
+        return len([ranks for ranks in combs_of_ranks
+                    if sum(rank.int_value() for rank in ranks) == 15])
 
     def __runs_of__(self, n):
-        tuples = combinations(self.__all_cards_ranks_sorted__(), n)
-        return [t for t in tuples if Rank.are_consecutives(t)]
+        combs_of_ranks = combinations(self.__all_cards_ranks_sorted__(), n)
+        return [ranks for ranks in combs_of_ranks
+                if Rank.are_consecutives(ranks)]
 
     def __count_same_suite__(self):
-        return len([c for c in self.hand_cards[1:]
-                    if c.suite == self.hand_cards[0].suite])
+        return len([card for card in self.hand_cards[1:]
+                    if card.suite == self.hand_cards[0].suite])
 
     def __all_cards_sorted__(self):
         return sorted(self.hand_cards + [self.starter_card])

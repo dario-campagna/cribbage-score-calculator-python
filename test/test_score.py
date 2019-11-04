@@ -20,7 +20,7 @@ class TestPairs(unittest.TestCase):
             Card(Rank('3'), Suite.DIAMONDS),
             Card(Rank('A'), Suite.DIAMONDS),
             Card(Rank('3'), Suite.CLUBS),
-            Card(Rank('7'), Suite.DIAMONDS),
+            Card(Rank('6'), Suite.DIAMONDS),
             Card(Rank('A'), Suite.HEARTS),
         ])
         self.assertEqual(4, score(cribbage_hand))
@@ -101,11 +101,11 @@ class TestRuns(unittest.TestCase):
 
     def test_eight_points_for_double_run(self):
         cribbage_hand = CribbageHand([
-            Card(Rank('2'), Suite.DIAMONDS),
-            Card(Rank('2'), Suite.HEARTS),
-            Card(Rank('3'), Suite.CLUBS),
-            Card(Rank('7'), Suite.DIAMONDS),
-            Card(Rank('4'), Suite.SPADES),
+            Card(Rank('5'), Suite.DIAMONDS),
+            Card(Rank('5'), Suite.HEARTS),
+            Card(Rank('6'), Suite.CLUBS),
+            Card(Rank('A'), Suite.DIAMONDS),
+            Card(Rank('7'), Suite.SPADES)
         ])
         self.assertEqual(8, score(cribbage_hand))
 
@@ -140,3 +140,23 @@ class TestFifteenTows(unittest.TestCase):
             Card(Rank('8'), Suite.SPADES),
         ])
         self.assertEqual(2, score(cribbage_hand))
+
+    def test_fifteen_sixteen_and_six_pairs(self):
+        cribbage_hand = CribbageHand([
+            Card(Rank('5'), Suite.DIAMONDS),
+            Card(Rank('5'), Suite.HEARTS),
+            Card(Rank('5'), Suite.CLUBS),
+            Card(Rank('0'), Suite.SPADES),
+            Card(Rank('5'), Suite.SPADES),
+        ])
+        self.assertEqual(28, score(cribbage_hand))
+
+    def test_highest_possible_score(self):
+        cribbage_hand = CribbageHand([
+            Card(Rank('5'), Suite.DIAMONDS),
+            Card(Rank('5'), Suite.HEARTS),
+            Card(Rank('5'), Suite.CLUBS),
+            Card(Rank('J'), Suite.SPADES),
+            Card(Rank('5'), Suite.SPADES),
+        ])
+        self.assertEqual(29, score(cribbage_hand))
