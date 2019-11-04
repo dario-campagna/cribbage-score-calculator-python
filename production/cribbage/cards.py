@@ -27,6 +27,14 @@ class Rank(object):
             return True
         else:
             return False
+        
+    def int_value(self):
+        if 'A' == self.value:
+            return 1
+        elif '0' == self.value or self.value >= 'J':
+            return 10
+        else:
+            return int(self.value)
 
     def __eq__(self, that):
         if isinstance(that, Rank):
@@ -81,6 +89,13 @@ class CribbageHand(object):
 
     def number_of_runs_of_three(self):
         return len(self.__runs_of__(3))
+
+    def number_of_fifteen_twos(self):
+        two_cards = combinations(self.__all_cards_ranks_sorted__(), 2)
+        return len([t for t in two_cards if self.__totals_fifteen__(t)])
+
+    def __totals_fifteen__(self, ranks):
+        return sum(rank.int_value() for rank in ranks) == 15
 
     def __runs_of__(self, n):
         tuples = combinations(self.__all_cards_ranks_sorted__(), n)

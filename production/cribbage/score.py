@@ -3,11 +3,15 @@ from production.cribbage.cards import CribbageHand
 
 def score(cribbage_hand: CribbageHand):
     return (
+        __score_fifteen_twos__(cribbage_hand) +
         __score_runs__(cribbage_hand) +
         __score_pairs__(cribbage_hand) +
         __score_flush__(cribbage_hand)
     )
 
+
+def __score_fifteen_twos__(cribbage_hand):
+    return 2 * cribbage_hand.number_of_fifteen_twos()
 
 def __score_runs__(cribbage_hand):
     if cribbage_hand.is_run_of_five():
