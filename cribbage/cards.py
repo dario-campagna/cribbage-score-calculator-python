@@ -76,6 +76,9 @@ class CribbageHand(object):
     def is_flush(self):
         return self.__count_same_suite__() == 3
 
+    def is_starter_card_suite_same_as_hand_cards(self):
+        return all(self.starter_card.suite == c.suite for c in self.hand_cards)
+
     def holds_nob(self):
         return Card(Rank('J'), self.starter_card.suite) in self.hand_cards
 

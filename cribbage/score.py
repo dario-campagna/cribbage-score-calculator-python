@@ -28,4 +28,4 @@ def __score_pairs__(cribbage_hand: CribbageHand):
 
 
 def __score_flush__(cribbage_hand: CribbageHand):
-    return 4 * cribbage_hand.is_flush() + 1 * cribbage_hand.holds_nob()
+    return 4 * cribbage_hand.is_flush() + 1 * cribbage_hand.is_starter_card_suite_same_as_hand_cards() + 1 * cribbage_hand.holds_nob()

@@ -57,6 +57,16 @@ class TestFlush(unittest.TestCase):
         ])
         self.assertEqual(4, score(cribbage_hand))
 
+    def test_five_points_for_a_flush_and_starter_card_of_same_suite(self):
+        cribbage_hand = CribbageHand([
+            Card(Rank('3'), Suite.DIAMONDS),
+            Card(Rank('A'), Suite.DIAMONDS),
+            Card(Rank('7'), Suite.DIAMONDS),
+            Card(Rank('9'), Suite.DIAMONDS),
+            Card(Rank('J'), Suite.DIAMONDS),
+        ])
+        self.assertEqual(5, score(cribbage_hand))
+
     def test_one_point_for_the_J_of_the_same_suite_as_the_starter_card(self):
         cribbage_hand = CribbageHand([
             Card(Rank('3'), Suite.DIAMONDS),
